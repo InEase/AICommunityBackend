@@ -22,7 +22,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 		var userId uint
 		// 分离判断条件，用来做API认证接口
-
+		tokenString = tokenString[7:]
 		token, claims, err := ParseToken(tokenString)
 		if err != nil || !token.Valid {
 			println("验证：Token无效/解析错误，返回")
