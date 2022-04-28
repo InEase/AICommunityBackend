@@ -13,14 +13,14 @@ func Response(ctx *gin.Context, code int, data gin.H, msg string) {
 }
 
 func NotAuthorized(ctx *gin.Context) {
-	ResponseWithNoData(ctx, 1000)
+	ResponseWithNoData(ctx, "无权限")
 }
 
-func ResponseWithNoData(ctx *gin.Context, code int) {
+func ResponseWithNoData(ctx *gin.Context, msg string) {
 	ctx.JSON(200, gin.H{
-		"code": code,
+		"code": -1,
 		"data": nil,
-		"msg":  StatusMsg(code),
+		"msg":  msg,
 	})
 	ctx.Abort()
 }

@@ -20,14 +20,14 @@ func CreateArticle(ctx *gin.Context) {
 	var article Articles
 	// title和body的非空校验
 	if title == "" && body == "" {
-		ResponseWithNoData(ctx, 1009)
+		ResponseWithNoData(ctx, "Title 或 body 为空")
 		return
 	}
 
 	//	一个简单的标题查重验证
 	db.Where("title = ?", title).First(&article)
 	if article.ID != 0 {
-		ResponseWithNoData(ctx, 1008)
+		ResponseWithNoData(ctx, "标题重复")
 		return
 	}
 

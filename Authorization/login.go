@@ -18,18 +18,18 @@ func Login(ctx *gin.Context) {
 	var user Users
 	db.Where("name = ?", name).First(&user)
 	if user.ID == 0 {
-		ResponseWithNoData(ctx, 1008)
+		ResponseWithNoData(ctx, "找不到用户")
 		return
 	}
 	// 判断密码是否正确
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
-		ResponseWithNoData(ctx, 1009)
+		ResponseWithNoData(ctx, "密码错误")
 		return
 	}
 	// 发放token
 	token, err := ReleaseToken(user)
 	if err != nil {
-		ResponseWithNoData(ctx, 1010)
+		ResponseWithNoData(ctx, "Token生成失败")
 		return
 	}
 	// 返回结果

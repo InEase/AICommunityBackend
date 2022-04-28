@@ -19,21 +19,21 @@ func Register(ctx *gin.Context) {
 	avatar := ctx.DefaultPostForm("avatar", AvatarGenerator())
 
 	logger.Info("用户注册:", name, password, gender, school, avatar)
-	if password == "" {
-		ResponseWithNoData(ctx, 1002)
+	if password == "" || name == "" {
+		ResponseWithNoData(ctx, "用户名或密码为空")
 	}
 	//TODO: 此处需要对数据进行合法性校验 性别 学校 以及恶意avatar网址注入
 
 	// 查询用户名是否重复
 	db.Where("name = ?", name).First(&user)
 	if user.ID != 0 {
-		ResponseWithNoData(ctx, 1006)
+		ResponseWithNoData(ctx, "用户名重复")
 		return
 	}
 	// 加密密码
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		ResponseWithNoData(ctx, 1007)
+		ResponseWithNoData(ctx, "密码加密失败")
 		return
 	}
 	// 创建用户

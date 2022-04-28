@@ -9,7 +9,7 @@ import (
 
 func RegisterAll(r *gin.Engine) *gin.Engine {
 	db := database.InitDB()
-	err := db.AutoMigrate(&Users{}, &Tokens{})
+	err := db.AutoMigrate(&Users{})
 	if err != nil {
 		panic(err)
 	}
@@ -33,13 +33,6 @@ type Users struct {
 	Avatar   string `json:"avatar"`
 	Desc     string `json:"desc"`
 	School   string `json:"school"`
-}
-
-// Tokens API-Token
-type Tokens struct {
-	gorm.Model
-	User  uint
-	Token string
 }
 
 func ToUserDto(user Users) gin.H {
