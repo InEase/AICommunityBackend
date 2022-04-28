@@ -1,0 +1,8 @@
+server:
+  version: 0.1
+  debug: True
+  port: 1016
+datasource:
+  version: 0.1
+  location: ./database/
+  database: AICommunity.db
