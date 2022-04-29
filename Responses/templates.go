@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Response(ctx *gin.Context, code int, data gin.H, msg string) {
+func Response(ctx *gin.Context, code int, data interface{}, msg string) {
 	ctx.JSON(200, gin.H{
 		"code": code,
 		"data": data,

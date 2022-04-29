@@ -19,7 +19,7 @@ func RegisterAll(r *gin.Engine) *gin.Engine {
 		article.POST("/publish", Authorization.AuthMiddleware(), CreateArticle)
 		article.GET("/info", Info)
 		article.POST("/info", Authorization.AuthMiddleware(), ChangeInfo)
-		//auth.POST("/login", Login)
+		article.GET("/list", DefaultList)
 		//auth.DELETE("/info", AuthMiddleware(), DeleteUser)
 	}
 	logger.Trace("成功加载认证 Article 组件")
