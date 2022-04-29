@@ -14,11 +14,12 @@ func RegisterAll(r *gin.Engine) *gin.Engine {
 	if err != nil {
 		panic(err)
 	}
-	article := r.Group("/article", Authorization.AuthMiddleware())
+	article := r.Group("/article")
 	{
-		article.POST("/publish", CreateArticle)
+		article.POST("/publish", Authorization.AuthMiddleware(), CreateArticle)
+		article.GET("/info", Info)
+		article.POST("/info", Authorization.AuthMiddleware(), ChangeInfo)
 		//auth.POST("/login", Login)
-		//auth.GET("/info", AuthMiddleware(), Info)
 		//auth.DELETE("/info", AuthMiddleware(), DeleteUser)
 	}
 	logger.Trace("成功加载认证 Article 组件")
