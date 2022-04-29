@@ -25,7 +25,6 @@ func RegisterAll(r *gin.Engine) *gin.Engine {
 	return r
 }
 
-// Articles TODO：Like记录使用外键实现
 type Articles struct {
 	gorm.Model
 	Creator uint   `json:"creator"`
