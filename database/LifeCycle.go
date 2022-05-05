@@ -5,6 +5,9 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"log"
+	"os"
+	"time"
 )
 
 var DB *gorm.DB
@@ -14,8 +17,18 @@ func InitDB() *gorm.DB {
 	// Changed to Using SQLite
 	location := viper.GetString("datasource.location")
 	database := viper.GetString("datasource.database")
+	newLogger := logger.New(
+		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+		logger.Config{
+			SlowThreshold:             time.Second, // Slow SQL threshold
+			LogLevel:                  logger.Info, // Log level
+			IgnoreRecordNotFoundError: true,        // Ignore ErrRecordNotFound error for logger
+			Colorful:                  true,        // Disable color
+		},
+	)
+
 	db, err := gorm.Open(sqlite.Open(location+database), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info),
+		Logger: newLogger,
 	})
 	if err != nil {
 		panic("Failed to connect to database , err:" + err.Error())
