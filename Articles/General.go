@@ -21,6 +21,7 @@ func RegisterAll(r *gin.Engine) *gin.Engine {
 		article.POST("/info", Authorization.AuthMiddleware(), ChangeInfo)
 		article.GET("/list", DefaultList)
 		article.DELETE("/info", Authorization.AuthMiddleware(), DeleteArticle)
+		article.GET("/search", SearchList)
 	}
 	logger.Trace("成功加载认证 Article 组件")
 	return r
