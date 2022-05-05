@@ -10,8 +10,8 @@ import (
 func SearchList(ctx *gin.Context) {
 	db := database.GetDB()
 
-	title := ctx.DefaultPostForm("title", "")
-	body := ctx.DefaultPostForm("body", "")
+	title := ctx.DefaultQuery("title", "")
+	body := ctx.DefaultQuery("body", "")
 
 	title = "%" + title + "%"
 	body = "%" + body + "%"
