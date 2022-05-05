@@ -37,11 +37,12 @@ type Articles struct {
 
 func ToArticleDto(article Articles) gin.H {
 	return gin.H{
-		"articleId": article.ID,
-		"title":     article.Title,
-		"body":      article.Body,
-		"category":  article.Category,
-		"like":      article.Like,
+		"articleId":     article.ID,
+		"title":         article.Title,
+		"body":          article.Body,
+		"category":      article.Category,
+		"like":          article.Like,
+		"category_name": CATEGORY[article.Category],
 	}
 }
 
@@ -49,11 +50,12 @@ func ToListArticleDto(articles []Articles) []gin.H {
 	var data []gin.H
 	for _, article := range articles {
 		data = append(data, gin.H{
-			"articleId": article.ID,
-			"title":     article.Title,
-			"body":      article.Body,
-			"category":  article.Category,
-			"like":      article.Like,
+			"articleId":     article.ID,
+			"title":         article.Title,
+			"body":          article.Body,
+			"category":      article.Category,
+			"like":          article.Like,
+			"category_name": CATEGORY[article.Category],
 		})
 	}
 
