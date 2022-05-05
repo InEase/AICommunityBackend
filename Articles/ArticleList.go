@@ -31,14 +31,21 @@ func DefaultList(ctx *gin.Context) {
 			return
 		}
 	}
+
 	// Start Process
 	var articles []Articles
-	db.Limit(limit).Offset(offset).Select("ID").Find(&articles)
 
-	var ids []uint
-	for _, article := range articles {
-		ids = append(ids, article.ID)
+	temp3, exists := ctx.GetQuery("category")
+	if exists {
+		category, parseError := strconv.Atoi(temp3)
+		if parseError != nil {
+			ResponseWithNoData(ctx, "category 请传入数值类型")
+			return
+		}
+		db.Limit(limit).Offset(offset).Where("category = ?", category).Find(&articles)
+	} else {
+		db.Limit(limit).Offset(offset).Find(&articles)
 	}
 
-	Response(ctx, 0, ids, "完成")
+	Response(ctx, 0, ToListArticleDto(articles), "完成")
 }
