@@ -5,6 +5,7 @@ import (
 	. "AICommunity/Responses"
 	"AICommunity/database"
 	"github.com/gin-gonic/gin"
+	"strconv"
 )
 
 // CreateArticle POST 创建文章 需要认证
@@ -12,6 +13,12 @@ func CreateArticle(ctx *gin.Context) {
 	db := database.GetDB()
 	title := ctx.PostForm("title")
 	body := ctx.PostForm("body")
+	strCategory := ctx.PostForm("category")
+	category, err := strconv.Atoi(strCategory)
+	if err != nil {
+		ResponseWithNoData(ctx, "未传category 或category不是一个整数")
+		return
+	}
 
 	user, _ := ctx.Get("user")
 	userid := user.(Authorization.Users).ID
@@ -31,11 +38,18 @@ func CreateArticle(ctx *gin.Context) {
 		return
 	}
 
+	// 确认category id在范围内
+	if !IfInSlice(category, CategoryKeys) {
+		ResponseWithNoData(ctx, "未知category")
+		return
+	}
+
 	newArticle := Articles{
-		Creator: userid,
-		Title:   title,
-		Body:    body,
-		Like:    0,
+		Creator:  userid,
+		Title:    title,
+		Body:     body,
+		Like:     0,
+		Category: category,
 	}
 	db.Create(&newArticle)
 

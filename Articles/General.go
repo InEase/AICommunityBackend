@@ -28,10 +28,11 @@ func RegisterAll(r *gin.Engine) *gin.Engine {
 
 type Articles struct {
 	gorm.Model
-	Creator uint   `json:"creator"`
-	Title   string `json:"title"`
-	Body    string `json:"body"`
-	Like    int    `json:"like"`
+	Creator  uint   `json:"creator"`
+	Title    string `json:"title"`
+	Body     string `json:"body"`
+	Category int    `json:"category"`
+	Like     int    `json:"like"`
 }
 
 func ToArticleDto(article Articles) gin.H {
@@ -39,6 +40,7 @@ func ToArticleDto(article Articles) gin.H {
 		"articleId": article.ID,
 		"title":     article.Title,
 		"body":      article.Body,
+		"category":  article.Category,
 		"like":      article.Like,
 	}
 }
