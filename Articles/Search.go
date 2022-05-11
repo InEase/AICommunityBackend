@@ -40,7 +40,7 @@ func SearchList(ctx *gin.Context) {
 
 	// Start Process
 	var articles []Articles
-	usualQuery := db.Limit(limit).Offset(offset).Where("title like ?", title).Where("body like ?", body)
+	usualQuery := db.Limit(limit).Offset(offset).Where("title like ?", title).Where("body like ?", body).Order("created_at DESC")
 	temp, exists := ctx.GetQuery("category")
 	if exists {
 		category, parseError := strconv.Atoi(temp)
