@@ -14,7 +14,7 @@ func RegisterAll(r *gin.Engine) *gin.Engine {
 	if err != nil {
 		panic(err)
 	}
-	article := r.Group("/article")
+	article := r.Group("/api/article")
 	{
 		article.POST("/publish", Authorization.AuthMiddleware(), CreateArticle)
 		article.GET("/info", Info)

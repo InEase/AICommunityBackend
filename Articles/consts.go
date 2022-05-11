@@ -1,12 +1,11 @@
 package Articles
 
 var CATEGORY = map[int]string{
-	0: "分类1",
-	1: "分类2",
-	2: "分类3",
-	3: "分类4",
-	4: "分类5",
-	5: "分类6",
+	0: "行业资讯",
+	1: "AI论坛",
+	2: "订单滚动",
+	3: "合作方",
+	4: "项目招揽",
 }
 
 func Keys(m map[int]string) []int {

@@ -16,13 +16,21 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		// validate token format
 		if tokenString == "" {
-			println("验证：无Token，返回")
-			Responses.NotAuthorized(ctx)
-			return
+			cookie, err := ctx.Cookie("token")
+
+			if err != nil || cookie == "" {
+				println("验证：无Token，返回")
+				Responses.NotAuthorized(ctx)
+				return
+			} else {
+				tokenString = cookie
+			}
+		} else {
+			tokenString = tokenString[7:]
 		}
+
 		var userId uint
 		// 分离判断条件，用来做API认证接口
-		tokenString = tokenString[7:]
 		token, claims, err := ParseToken(tokenString)
 		if err != nil || !token.Valid {
 			println("验证：Token无效/解析错误，返回")

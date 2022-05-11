@@ -13,7 +13,7 @@ func RegisterAll(r *gin.Engine) *gin.Engine {
 	if err != nil {
 		panic(err)
 	}
-	auth := r.Group("/user")
+	auth := r.Group("/api/user")
 	{
 		auth.POST("/register", Register)
 		auth.POST("/login", Login)
@@ -37,6 +37,11 @@ type Users struct {
 
 func ToUserDto(user Users) gin.H {
 	return gin.H{
-		"name": user.Name,
+		"name":   user.Name,
+		"status": user.Status,
+		"gender": user.Gender,
+		"avatar": user.Avatar,
+		"desc":   user.Desc,
+		"school": user.School,
 	}
 }

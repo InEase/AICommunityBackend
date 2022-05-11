@@ -32,6 +32,17 @@ func Login(ctx *gin.Context) {
 		ResponseWithNoData(ctx, "Token生成失败")
 		return
 	}
+	// Set Cookie
+	//cookie, err := ctx.Cookie("token")
+	//cookie = "NotSet"
+	ctx.SetCookie("token", token, 3600, "/", "localhost", false, false)
+
+	//cookie, err := ctx.Cookie("token")
+	//if err != nil {
+	//	//创建cookie
+	//	cookie = "NotSet"
+	//}
+
 	// 返回结果
 	Response(ctx, 0, gin.H{"token": token}, StatusMsg(0))
 }
