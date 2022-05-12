@@ -3,6 +3,7 @@ package main
 import (
 	"AICommunity/Articles"
 	"AICommunity/Authorization"
+	"AICommunity/Like"
 	"AICommunity/database"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -27,6 +28,7 @@ func RegisterAll(r *gin.Engine) *gin.Engine {
 	database.InitDB()
 	Authorization.RegisterAll(r)
 	Articles.RegisterAll(r)
+	Like.RegisterAll(r)
 	//TaskList.RegisterAll(db, r)
 	//Layout.RegisterAll(r)
 	return r

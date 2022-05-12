@@ -1,6 +1,7 @@
 package Articles
 
 import (
+	"AICommunity/Authorization"
 	. "AICommunity/Responses"
 	"AICommunity/database"
 	"github.com/gin-gonic/gin"
@@ -53,5 +54,10 @@ func SearchList(ctx *gin.Context) {
 		usualQuery.Find(&articles)
 	}
 
-	Response(ctx, 0, ToListArticleDto(articles), "完成")
+	var userid uint = 999999999
+	user, status := ctx.Get("user")
+	if status {
+		userid = user.(Authorization.Users).ID
+	}
+	Response(ctx, 0, ToListArticleDto(articles, userid), "完成")
 }

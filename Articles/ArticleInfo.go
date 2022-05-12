@@ -25,7 +25,12 @@ func Info(ctx *gin.Context) {
 		return
 	}
 
-	Response(ctx, 0, ToArticleDto(article), "完成")
+	var userid uint = 999999999
+	user, status := ctx.Get("user")
+	if status {
+		userid = user.(Authorization.Users).ID
+	}
+	Response(ctx, 0, ToArticleDto(article, userid), "完成")
 }
 
 func ChangeInfo(ctx *gin.Context) {
@@ -86,5 +91,5 @@ func ChangeInfo(ctx *gin.Context) {
 	if updated {
 		db.Save(&article)
 	}
-	Response(ctx, 0, ToArticleDto(article), "完成")
+	Response(ctx, 0, ToArticleDto(article, user.(Authorization.Users).ID), "完成")
 }

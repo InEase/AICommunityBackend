@@ -2,6 +2,7 @@ package Articles
 
 import (
 	"AICommunity/Authorization"
+	"AICommunity/Like"
 	"AICommunity/database"
 	"github.com/gin-gonic/gin"
 	"github.com/wonderivan/logger"
@@ -17,11 +18,11 @@ func RegisterAll(r *gin.Engine) *gin.Engine {
 	article := r.Group("/api/article")
 	{
 		article.POST("/publish", Authorization.AuthMiddleware(), CreateArticle)
-		article.GET("/info", Info)
+		article.GET("/info", Authorization.NoBlockAuth(), Info)
 		article.POST("/info", Authorization.AuthMiddleware(), ChangeInfo)
-		article.GET("/list", DefaultList)
+		article.GET("/list", Authorization.NoBlockAuth(), DefaultList)
 		article.DELETE("/info", Authorization.AuthMiddleware(), DeleteArticle)
-		article.GET("/search", SearchList)
+		article.GET("/search", Authorization.NoBlockAuth(), SearchList)
 	}
 	logger.Trace("成功加载认证 Article 组件")
 	return r
@@ -34,20 +35,23 @@ type Articles struct {
 	Body     string `json:"body"`
 	Category int    `json:"category"`
 	Like     int    `json:"like"`
+	Favorite int    `json:"favorite"`
 }
 
-func ToArticleDto(article Articles) gin.H {
+func ToArticleDto(article Articles, user uint) gin.H {
 	return gin.H{
 		"articleId":     article.ID,
 		"title":         article.Title,
 		"body":          article.Body,
 		"category":      article.Category,
-		"like":          article.Like,
+		"like":          Like.GetLikeCountRPC(article.ID),
+		"isLike":        Like.IsLikedRPC(article.ID, user),
+		"favorite":      article.Favorite,
 		"category_name": CATEGORY[article.Category],
 	}
 }
 
-func ToListArticleDto(articles []Articles) []gin.H {
+func ToListArticleDto(articles []Articles, user uint) []gin.H {
 	var data []gin.H
 	for _, article := range articles {
 		data = append(data, gin.H{
@@ -55,7 +59,9 @@ func ToListArticleDto(articles []Articles) []gin.H {
 			"title":         article.Title,
 			"body":          article.Body,
 			"category":      article.Category,
-			"like":          article.Like,
+			"like":          Like.GetLikeCountRPC(article.ID),
+			"isLike":        Like.IsLikedRPC(article.ID, user),
+			"favorite":      article.Favorite,
 			"category_name": CATEGORY[article.Category],
 		})
 	}

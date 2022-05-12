@@ -1,6 +1,7 @@
 package Articles
 
 import (
+	"AICommunity/Authorization"
 	. "AICommunity/Responses"
 	"AICommunity/database"
 	"github.com/gin-gonic/gin"
@@ -47,5 +48,10 @@ func DefaultList(ctx *gin.Context) {
 		db.Limit(limit).Offset(offset).Order("created_at DESC").Find(&articles)
 	}
 
-	Response(ctx, 0, ToListArticleDto(articles), "完成")
+	var userid uint = 999999999
+	user, status := ctx.Get("user")
+	if status {
+		userid = user.(Authorization.Users).ID
+	}
+	Response(ctx, 0, ToListArticleDto(articles, userid), "完成")
 }

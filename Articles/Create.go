@@ -53,5 +53,5 @@ func CreateArticle(ctx *gin.Context) {
 	}
 	db.Create(&newArticle)
 
-	Response(ctx, 0, ToArticleDto(newArticle), StatusMsg(0))
+	Response(ctx, 0, ToArticleDto(newArticle, userid), StatusMsg(0))
 }

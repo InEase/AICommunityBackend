@@ -54,3 +54,45 @@ func AuthMiddleware() gin.HandlerFunc {
 		ctx.Next()
 	}
 }
+
+func NoBlockAuth() gin.HandlerFunc {
+	// 进行权限验证
+	return func(ctx *gin.Context) {
+		// 获取 Authorization Header
+		tokenString := ctx.GetHeader("Authorization")
+
+		// validate token format
+		if tokenString == "" {
+			cookie, err := ctx.Cookie("token")
+
+			if err != nil || cookie == "" {
+				ctx.Next()
+			} else {
+				tokenString = cookie
+			}
+		} else {
+			tokenString = tokenString[7:]
+		}
+
+		var userId uint
+		// 分离判断条件，用来做API认证接口
+		token, claims, err := ParseToken(tokenString)
+		if err != nil || !token.Valid {
+			ctx.Next()
+		}
+		// 通过验证
+		// 获取token中的userid
+		userId = claims.UserId
+
+		DB := database.GetDB()
+		var user Users
+		DB.First(&user, userId)
+		// 验证用户是否存在
+		if userId == 0 {
+			ctx.Next()
+		}
+		// 用户存在 把user信息写入上下文
+		ctx.Set("user", user)
+		ctx.Next()
+	}
+}
