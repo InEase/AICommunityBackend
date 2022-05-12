@@ -2,6 +2,7 @@ package Articles
 
 import (
 	"AICommunity/Authorization"
+	"AICommunity/Favorite"
 	"AICommunity/Like"
 	"AICommunity/database"
 	"github.com/gin-gonic/gin"
@@ -46,7 +47,8 @@ func ToArticleDto(article Articles, user uint) gin.H {
 		"category":      article.Category,
 		"like":          Like.GetLikeCountRPC(article.ID),
 		"isLike":        Like.IsLikedRPC(article.ID, user),
-		"favorite":      article.Favorite,
+		"favorite":      Favorite.GetFavoriteCountRPC(article.ID),
+		"isFavorite":    Favorite.IsFavoriteRPC(article.ID, user),
 		"category_name": CATEGORY[article.Category],
 	}
 }
@@ -61,7 +63,8 @@ func ToListArticleDto(articles []Articles, user uint) []gin.H {
 			"category":      article.Category,
 			"like":          Like.GetLikeCountRPC(article.ID),
 			"isLike":        Like.IsLikedRPC(article.ID, user),
-			"favorite":      article.Favorite,
+			"favorite":      Favorite.GetFavoriteCountRPC(article.ID),
+			"isFavorite":    Favorite.IsFavoriteRPC(article.ID, user),
 			"category_name": CATEGORY[article.Category],
 		})
 	}
