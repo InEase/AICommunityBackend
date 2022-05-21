@@ -1,0 +1,1244 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "AI Community",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "用户管理"
+    },
+    {
+      "name": "文章管理"
+    }
+  ],
+  "paths": {
+    "/article/info": {
+      "delete": {
+        "summary": "删除文章",
+        "x-apifox-folder": "文章管理",
+        "x-apifox-status": "tested",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文章管理"
+        ],
+        "parameters": [
+          {
+            "name": "articleid",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "更改文章信息",
+        "x-apifox-folder": "文章管理",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "需要鉴权",
+        "tags": [
+          "文章管理"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "articleid": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "articleid"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/%E6%96%87%E7%AB%A0%E4%BF%A1%E6%81%AF"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data",
+                    "msg"
+                  ],
+                  "x-apifox-orders": [
+                    "code",
+                    "data",
+                    "msg"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例 ",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "articleid": 9,
+                        "title": "志设干须此花",
+                        "body": "当直因生林加极许团目接律内维也军。别按亲华则马系两红步研调情厂委起各。得务事形且半实花分五对其做程。",
+                        "like": 8926646864720792
+                      },
+                      "msg": "成功"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "获取文章信息",
+        "x-apifox-folder": "文章管理",
+        "x-apifox-status": "designing",
+        "deprecated": false,
+        "description": "无需鉴权",
+        "tags": [
+          "文章管理"
+        ],
+        "parameters": [
+          {
+            "name": "articleid",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "123456",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/%E6%96%87%E7%AB%A0%E4%BF%A1%E6%81%AF"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data",
+                    "msg"
+                  ],
+                  "x-apifox-orders": [
+                    "code",
+                    "data",
+                    "msg"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例 ",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "articleid": 3,
+                        "title": "矿要委入机保元",
+                        "body": "商则干确表知总万指把作理。四府技动影没八完除物主建务面样天。东强权院么手内志几线消太性人按拉工两。热教引九变己北象交成事改种广建器律。第细圆据容万天必平按社称被将边第器论。",
+                        "like": -3224000790885832
+                      },
+                      "msg": "成功"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/info": {
+      "delete": {
+        "summary": "删除用户",
+        "x-apifox-folder": "用户管理",
+        "x-apifox-status": "tested",
+        "deprecated": false,
+        "description": "后台验证，要删除的用户是否是本人",
+        "tags": [
+          "用户管理"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "权限验证失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "null"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data",
+                    "msg"
+                  ],
+                  "x-apifox-orders": [
+                    "code",
+                    "data",
+                    "msg"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "异常示例 ",
+                    "value": {
+                      "code": "1005",
+                      "data": null,
+                      "msg": "无权限"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "获取用户信息",
+        "x-apifox-folder": "用户管理",
+        "x-apifox-status": "tested",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户管理"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "cookie",
+            "description": "",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userid",
+            "in": "query",
+            "description": "如果不给出，则查询当前登录的用户信息",
+            "required": false,
+            "example": "123456",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "未鉴权",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "data": {
+                      "type": "null"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data",
+                    "msg"
+                  ],
+                  "x-apifox-orders": [
+                    "code",
+                    "data",
+                    "msg"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "异常-无权限",
+                    "value": {
+                      "code": 1000,
+                      "data": null,
+                      "msg": "无权限"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "更改用户信息",
+        "x-apifox-folder": "用户管理",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "默认修改本人信息",
+        "tags": [
+          "用户管理"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "用户名称",
+                    "example": "小明"
+                  },
+                  "gender": {
+                    "type": "string",
+                    "description": "性别",
+                    "example": "男"
+                  },
+                  "school": {
+                    "type": "string",
+                    "description": "学校",
+                    "example": "电子科技大学"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "description": "头像url，必须满足正则，如果不传后端会自动生成一个头像作为用户头像"
+                  },
+                  "desc": {
+                    "type": "string",
+                    "description": "简介",
+                    "example": "简介"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "0"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data",
+                    "msg"
+                  ],
+                  "x-apifox-orders": [
+                    "code",
+                    "data",
+                    "msg"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例 ",
+                    "value": {
+                      "code": 0,
+                      "field2": {
+                        "name": "黎娟",
+                        "userid": "7420250294029280",
+                        "gender": "男",
+                        "avatar": "http://lotxcbb.pw/yjkmdepek",
+                        "desc": "因整话派战何无度矿型却压白。生干然合酸所价切值记元车。社实程来程型切风温解处没就相六。织多事强际了年照家采又便。专酸空声争节受什热效于百。切前在二在位见属同开风议际发构消。",
+                        "alt": "http://gnmdxjzm.sd/rmrj",
+                        "school": "于静",
+                        "status": "ad cupidatat nostrud deserunt"
+                      },
+                      "msg": "成功"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/register": {
+      "post": {
+        "summary": "用户注册",
+        "x-apifox-folder": "用户管理",
+        "x-apifox-status": "tested",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户管理"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "用户名称",
+                    "example": "小明"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "gender": {
+                    "type": "string",
+                    "description": "性别",
+                    "example": "男"
+                  },
+                  "school": {
+                    "type": "string",
+                    "description": "学校",
+                    "example": "电子科技大学"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "description": "头像url，必须满足正则，如果不传后端会自动生成一个头像作为用户头像"
+                  }
+                },
+                "required": [
+                  "name",
+                  "password",
+                  "gender",
+                  "school"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "参数错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "description": "错误码可能会有不同，具体看文档"
+                    },
+                    "data": {
+                      "type": "null"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data",
+                    "msg"
+                  ],
+                  "x-apifox-orders": [
+                    "code",
+                    "data",
+                    "msg"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "异常示例 ",
+                    "value": {
+                      "code": "1002",
+                      "data": null,
+                      "msg": "参数错误"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/Favorite": {
+      "post": {
+        "summary": "收藏",
+        "x-apifox-folder": "文章管理",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文章管理"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "articleid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "articleid"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "summary": "用户登录",
+        "x-apifox-folder": "用户管理",
+        "x-apifox-status": "tested",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户管理"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "description": "前端需要保存token以鉴权"
+                        }
+                      },
+                      "required": [
+                        "token"
+                      ],
+                      "x-apifox-orders": [
+                        "token"
+                      ]
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data",
+                    "msg"
+                  ],
+                  "x-apifox-orders": [
+                    "code",
+                    "data",
+                    "msg"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例 ",
+                    "value": {
+                      "code": "0",
+                      "data": {
+                        "token": "#ZurmEE"
+                      },
+                      "msg": "成功"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/search": {
+      "get": {
+        "summary": "搜索用户",
+        "x-apifox-folder": "用户管理",
+        "x-apifox-status": "tested",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "用户管理"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "query",
+            "description": "请求参数任意组合",
+            "required": false,
+            "example": "123456",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "李华",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "school",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "电子科技大学",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "gender",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "男",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "普通用户",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data",
+                    "msg"
+                  ],
+                  "x-apifox-orders": [
+                    "code",
+                    "data",
+                    "msg"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例 ",
+                    "value": {
+                      "code": 0,
+                      "data": [
+                        {
+                          "name": "史伟",
+                          "userid": "8868540737107566",
+                          "gender": "男",
+                          "avatar": "http://xviirfcs.as/lswxuwrxh",
+                          "desc": "农候常算向指叫律比义更气育铁实。团眼做海点此手资己光电府治决容示江。商物性广立根者向众采政众位今门而光称。色保题于育空给即根她属要传图比术他取。",
+                          "alt": "http://clvrebwkg.cm/wdbsv",
+                          "school": "八"
+                        },
+                        {
+                          "name": "史伟",
+                          "userid": "8868540737107566",
+                          "gender": "男",
+                          "avatar": "http://xviirfcs.as/lswxuwrxh",
+                          "desc": "农候常算向指叫律比义更气育铁实。团眼做海点此手资己光电府治决容示江。商物性广立根者向众采政众位今门而光称。色保题于育空给即根她属要传图比术他取。",
+                          "alt": "http://clvrebwkg.cm/wdbsv",
+                          "school": "八"
+                        },
+                        {
+                          "name": "史伟",
+                          "userid": "8868540737107566",
+                          "gender": "男",
+                          "avatar": "http://xviirfcs.as/lswxuwrxh",
+                          "desc": "农候常算向指叫律比义更气育铁实。团眼做海点此手资己光电府治决容示江。商物性广立根者向众采政众位今门而光称。色保题于育空给即根她属要传图比术他取。",
+                          "alt": "http://clvrebwkg.cm/wdbsv",
+                          "school": "八"
+                        }
+                      ],
+                      "msg": "成功"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/list": {
+      "get": {
+        "summary": "获取文章推荐列表",
+        "x-apifox-folder": "文章管理",
+        "x-apifox-status": "designing",
+        "deprecated": false,
+        "description": "返回的是id列表~",
+        "tags": [
+          "文章管理"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "不传默认不分类~",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/%E6%96%87%E7%AB%A0%E4%BF%A1%E6%81%AF"
+                      }
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data",
+                    "msg"
+                  ],
+                  "x-apifox-orders": [
+                    "code",
+                    "data",
+                    "msg"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例 ",
+                    "value": {
+                      "code": 0,
+                      "data": [
+                        50,
+                        57,
+                        49,
+                        5,
+                        30
+                      ],
+                      "msg": "consectetur velit dolore"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/publish": {
+      "post": {
+        "summary": "发布文章",
+        "x-apifox-folder": "文章管理",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文章管理"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "body",
+                  "category"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/%E6%96%87%E7%AB%A0%E4%BF%A1%E6%81%AF"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data",
+                    "msg"
+                  ],
+                  "x-apifox-orders": [
+                    "code",
+                    "data",
+                    "msg"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例 ",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "articleId": 1,
+                        "title": "打大原始干只",
+                        "body": "体及动任观再题老会是十提作还。律许七断角王光计世根回细该。研委基历每场光法过断各手代术和确。",
+                        "like": -4435938963185700
+                      },
+                      "msg": "成功"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/search": {
+      "get": {
+        "summary": "搜索文章",
+        "x-apifox-folder": "文章管理",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "文章管理"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "不填默认不分类搜索~",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "body",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "获取列表时的分页",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "获取列表时的偏移",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/%E6%96%87%E7%AB%A0%E4%BF%A1%E6%81%AF"
+                      }
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data",
+                    "msg"
+                  ],
+                  "x-apifox-orders": [
+                    "code",
+                    "data",
+                    "msg"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例 ",
+                    "value": {
+                      "code": 0,
+                      "data": [
+                        27,
+                        70,
+                        57
+                      ],
+                      "msg": "Lorem ipsum"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/like": {
+      "post": {
+        "summary": "点赞",
+        "x-apifox-folder": "文章管理",
+        "x-apifox-status": "testing",
+        "deprecated": false,
+        "description": "toggle模式，如果没点赞就给他点上，如果已经点赞了就给他取消了~",
+        "tags": [
+          "文章管理"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "articleid": {
+                    "type": "string",
+                    "example": "0"
+                  }
+                },
+                "required": [
+                  "articleid"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "用户信息": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "用户名称"
+          },
+          "status": {
+            "type": "string",
+            "title": "用户状态"
+          },
+          "userid": {
+            "type": "integer",
+            "title": "用户id",
+            "description": "保证非负"
+          },
+          "gender": {
+            "type": "string",
+            "title": "性别"
+          },
+          "avatar": {
+            "type": "string",
+            "title": "头像url"
+          },
+          "desc": {
+            "type": "string",
+            "title": "简介"
+          },
+          "school": {
+            "type": "string",
+            "title": "学校"
+          }
+        },
+        "required": [
+          "name",
+          "userid",
+          "gender",
+          "avatar",
+          "desc",
+          "school",
+          "status"
+        ],
+        "x-apifox-orders": [
+          "name",
+          "status",
+          "userid",
+          "gender",
+          "avatar",
+          "desc",
+          "school"
+        ],
+        "x-apifox-folder": ""
+      },
+      "文章信息": {
+        "type": "object",
+        "properties": {
+          "articleId": {
+            "type": "number",
+            "description": "保证非负"
+          },
+          "title": {
+            "type": "string",
+            "description": "标题"
+          },
+          "body": {
+            "type": "string",
+            "description": "正文，推荐前端使用markdown编辑器，后端不对正文部分进行异常校验"
+          },
+          "like": {
+            "type": "number",
+            "description": "保证非负"
+          },
+          "category": {
+            "type": "number"
+          },
+          "category_name": {
+            "type": "string",
+            "description": "对应分类名"
+          }
+        },
+        "required": [
+          "articleId",
+          "title",
+          "body",
+          "like",
+          "category",
+          "category_name"
+        ],
+        "x-apifox-orders": [
+          "articleId",
+          "title",
+          "body",
+          "like"
+        ],
+        "x-apifox-folder": ""
+      }
+    }
+  }
+}
